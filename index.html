@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Dive Air Mixer</title>
+  <meta name="description" content="Dive Air Mixer">
+  <meta name="author" content="X.Villamuera">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.0">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <p class="alert-danger p-10 text-center">
+    <i class="fa fa-warning fa-2x"></i> <strong>DISCLAIMER : This page was built for demo purposes. It is not intended to actually really prepare your Dive's gaz mixes.
+    It can be used to get an idea. Please double check and triple check with your dive buddies. Also check your tank content before the dive. </strong>
+  </p>
+
+    <!-- DTT app -->
+    <div class="" id="dtt">
+      <h2>Dive Air Mixer</h2>
+      <p>Calculates MOD, EAD (and best mix using the depth slider) for salt water</p>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="ppo" class="pull-left">PPO (0.1 BAR increment)</label>
+          <div class="range-slider">
+            <input v-model="ppoval" id="ppo" class="range-slider__range" type="range" value="1.2" step="0.1" min="0.9" max="1.6">
+            <span v-text="ppodsp" class="range-slider__value pull-right"></span>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+    <div class="row">
+      <div class="col-md-12">
+      <label for="eanx" class="pull-left">EANx (1 % increment)</label>
+      <div class="range-slider">
+        <input id="eanx" v-model="eanval" class="range-slider__range" type="range" step="0.01" value="0.22" min="0.21" max="0.6">
+        <span v-text="eandsp" class="range-slider__value pull-right"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="depth" class="pull-left">Depth (0.1 m increment) </label>
+      <div class="range-slider">
+        <input id="depth" v-model="depthval" class="range-slider__range" type="range" value="30" step="0.1" min="3" max="60">
+        <span v-text="depthdsp" class="range-slider__value pull-right"></span>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div id="results" class="row text-center">
+  <div class="col-md-4 col-xs-4">
+    <div class="result"><strong>MOD</strong><br> <span>{{ mod.toFixed(2) }} m</span></div>
+  </div>
+  <div class="col-md-4 col-xs-4">
+      <div class="result"><strong>EAD</strong><br> <span>{{ ead.toFixed(2) }} m</span></div>
+  </div>
+  <div class="col-md-4 col-xs-4">
+      <div class="result"><strong>Mix</strong><br> <span>{{  eanx.toFixed(0)  }} %</span></div>
+  </div>
+</div>
+
+<hr>
+
+<div style="text-align:left">
+  <p>
+    These are the formulas used to calculate de MOD and EAD.
+    Note that if you slide the depth range you are then calculating the best mix for the choosen depth.
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-unstyled">
+          <li><strong>MOD (Maximun Operational Depth): 10 x ((ppO2/FO2)-1)</strong> </li>
+          <li><strong>EAD (Equivalent Air Depth) : (((1-eanx)*(mod+10))/0.79)-10</strong> </li>
+          <li><strong>Best Mix : ppo2/((depth/10)+1)</strong> </li>
+        </ul>
+        Eanx stands for 'Enriched Air NitroX'
+      </div>
+
+  </div>
+  </p>
+</div>
+    </div><!-- //DTT app -->
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="assets/js/dtt.js"></script>
+</body>
+</html>
